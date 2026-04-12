@@ -1,4 +1,5 @@
 import { HeroSection } from './components/HeroSection';
+import { AboutSection } from './components/AboutSection';
 import { ShowcaseSection } from './components/ShowcaseSection';
 import { ContactSection } from './components/ContactSection';
 import { Header } from './components/Header';
@@ -23,6 +24,7 @@ export default function App() {
       />
       <main className="min-h-screen w-full bg-background">
         <HeroSection />
+        <AboutSection />
         <ShowcaseSection />
         <ContactSection />
       </main>

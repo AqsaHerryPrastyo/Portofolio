@@ -46,6 +46,16 @@ export function Header() {
           Home
         </a>
         <a 
+          href="#about" 
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="text-white/70 hover:text-white text-sm md:text-base font-medium uppercase tracking-widest transition-colors"
+        >
+          About
+        </a>
+        <a 
           href="#showcase" 
           onClick={(e) => {
             e.preventDefault();

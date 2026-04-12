@@ -1,4 +1,4 @@
-import { Linkedin, MessageCircle, MapPin, ExternalLink } from 'lucide-react';
+import { Linkedin, MessageCircle, MapPin, ExternalLink, Github } from 'lucide-react';
 import { GradientDecoration } from './GradientDecoration';
 import svgPaths from "../imports/svg-8nyjavqfdl";
 import imgFrame5 from "figma:asset/d7380f96469e40689a739f087f761349035f78c3.png";
@@ -40,14 +40,14 @@ export function ContactSection() {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 auto-rows-[180px]">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-12 auto-rows-[180px]">
 
-          {/* Map - Large Card (spans 2 cols, 2 rows) */}
+          {/* Map - Large Card */}
           <a
             href="https://maps.google.com/?q=Denpasar,Bali,Indonesia"
             target="_blank"
             rel="noopener noreferrer"
-            className="md:col-span-2 md:row-span-2 group relative rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
+            className="md:col-span-3 md:row-span-2 group relative rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
           >
             {/* Map Image */}
             <img
@@ -69,12 +69,12 @@ export function ContactSection() {
             </div>
           </a>
 
-          {/* Instagram - Long Bar (col-span-2) */}
+          {/* Instagram - Long Bar */}
           <a
             href="https://www.instagram.com/oranji.studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             target="_blank"
             rel="noopener noreferrer"
-            className="md:col-span-2 relative group overflow-hidden rounded-3xl border border-white/10 hover:border-purple-500/30 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20"
+            className="md:col-span-3 relative group overflow-hidden rounded-3xl border border-white/10 hover:border-purple-500/30 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20"
           >
             {/* Background Layer */}
             <div className="absolute inset-0 bg-[#061100]" />
@@ -146,6 +146,26 @@ export function ContactSection() {
                 <h3 className="text-lg font-semibold text-white mb-1">LinkedIn</h3>
                 <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
                   Aqsa Herry Prasetya
+                </p>
+              </div>
+            </div>
+          </a>
+
+          {/* GitHub */}
+          <a
+            href="https://github.com/AqsaHerryPrastyo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-white/10"
+          >
+            <div className="h-full flex flex-col justify-between">
+              <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/10 text-white group-hover:bg-white/20 group-hover:scale-110 transition-all">
+                <Github size={24} />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-1">GitHub</h3>
+                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                  @DrWallace
                 </p>
               </div>
             </div>
