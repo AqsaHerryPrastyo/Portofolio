@@ -1,0 +1,312 @@
+/* Hero — recreated from Figma frame "Desktop - 1" (node 128:4), 1920x1080 artboard.
+   Every size below is a multiple of --u so the composition scales like the artboard.
+   --u = 1 design pixel. */
+
+.hero {
+  --u: calc(100vw / 1920);
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0f1116;
+  isolation: isolate;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  /* The artboard blurs its background layer (60px); match that softness. */
+  filter: blur(calc(12 * var(--u)));
+  transform: scale(1.02);
+}
+
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+      120% 90% at 50% 45%,
+      rgba(0, 0, 0, 0) 35%,
+      rgba(6, 8, 12, 0.55) 100%
+    ),
+    linear-gradient(180deg, rgba(8, 10, 14, 0.55) 0%, rgba(8, 10, 14, 0) 30%, rgba(8, 10, 14, 0.35) 100%);
+  pointer-events: none;
+}
+
+.hero__center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: calc(24 * var(--u));
+  /* The artboard sits the wordmark 49px below the optical centre. */
+  padding-top: calc(98 * var(--u));
+}
+
+.hero__title {
+  display: flex;
+  transform: translateX(calc(16 * var(--u)));
+  align-items: flex-end;
+  margin: 0;
+  font-family: 'Coolvetica', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: calc(200 * var(--u));
+  line-height: 1;
+  letter-spacing: calc(20 * var(--u));
+  color: #fff;
+  white-space: nowrap;
+}
+
+.hero__smiley {
+  position: relative;
+  display: block;
+  width: calc(182 * var(--u));
+  height: calc(182 * var(--u));
+  /* Cancel the trailing letter-space, then the 3px tuck from the artboard. */
+  margin-left: calc(3 * var(--u));
+  margin-bottom: calc(6 * var(--u));
+}
+
+.hero__smiley > img:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__selection {
+  position: absolute;
+  inset: calc(-7 * var(--u));
+  border: calc(2 * var(--u)) solid #31a8ff;
+  transform: rotate(8.1deg);
+  pointer-events: none;
+}
+
+.hero__handle {
+  position: absolute;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  background: #31a8ff;
+  border-radius: calc(1 * var(--u));
+}
+
+.hero__handle--tl {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.hero__handle--tr {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.hero__handle--bl {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+
+.hero__handle--br {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+.hero__smiley .hero__cursor {
+  position: absolute;
+  top: calc(141 * var(--u));
+  left: calc(113 * var(--u));
+  width: calc(100 * var(--u));
+  height: auto;
+  pointer-events: none;
+}
+
+.hero__byline {
+  display: flex;
+  gap: calc(14 * var(--u));
+  margin-top: calc(39 * var(--u));
+  font-family: 'Coolvetica', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: calc(60 * var(--u));
+  line-height: 1;
+  color: #fff;
+}
+
+.hero__byline-by {
+  letter-spacing: calc(6 * var(--u));
+}
+
+/* ── Desktop furniture ──────────────────────────────────────────────── */
+
+.hero__folder {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__folder--lg {
+  left: calc(110 * var(--u));
+  bottom: calc(113 * var(--u));
+  width: calc(239 * var(--u));
+}
+
+.hero__folder--sm-a {
+  right: calc(202 * var(--u));
+  top: calc(273 * var(--u));
+  width: calc(126 * var(--u));
+}
+
+.hero__folder--sm-b {
+  right: calc(147 * var(--u));
+  top: calc(301 * var(--u));
+  width: calc(126 * var(--u));
+}
+
+.hero__dock {
+  position: absolute;
+  left: 50%;
+  bottom: calc(20 * var(--u));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: calc(18 * var(--u));
+  padding: calc(20 * var(--u)) calc(16 * var(--u));
+  transform: translateX(-50%);
+  border-radius: calc(30 * var(--u));
+  background: rgba(74, 74, 74, 0.39);
+  box-shadow: inset 0 0 0 calc(2 * var(--u)) rgba(26, 26, 26, 0.9),
+    0 calc(10 * var(--u)) calc(30 * var(--u)) rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(calc(60 * var(--u)));
+  backdrop-filter: blur(calc(60 * var(--u)));
+}
+
+.hero__dock a,
+.hero__dock span {
+  display: block;
+  line-height: 0;
+  transition: transform 180ms ease;
+}
+
+.hero__dock img {
+  width: calc(73 * var(--u));
+  height: calc(73 * var(--u));
+}
+
+.hero__dock a:hover,
+.hero__dock a:focus-visible {
+  transform: translateY(calc(-6 * var(--u))) scale(1.06);
+}
+
+.hero__dock a:focus-visible {
+  outline: calc(3 * var(--u)) solid #31a8ff;
+  outline-offset: calc(4 * var(--u));
+  border-radius: calc(16 * var(--u));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__dock a,
+  .hero__dock span {
+    transition: none;
+  }
+}
+
+/* ── Small screens: recompose instead of shrinking the artboard ─────── */
+
+@media (max-width: 1023px) {
+  .hero__center {
+    padding-top: 0;
+  }
+
+  .hero__title {
+    transform: none;
+    font-size: clamp(48px, 12vw, 128px);
+    letter-spacing: 0.055em;
+  }
+
+  .hero__smiley {
+    width: 0.93em;
+    height: 0.93em;
+    margin-left: 0.055em;
+    margin-bottom: 0.04em;
+  }
+
+  .hero__selection {
+    inset: -0.055em;
+    border-width: 0.014em;
+  }
+
+  .hero__handle {
+    width: 0.062em;
+    height: 0.062em;
+    border-radius: 0.006em;
+  }
+
+  .hero__smiley .hero__cursor {
+    top: 0.72em;
+    left: 0.58em;
+    width: 0.55em;
+  }
+
+  .hero__byline {
+    margin-top: clamp(14px, 2.4vw, 28px);
+    font-size: clamp(20px, 4.4vw, 40px);
+    gap: 0.23em;
+  }
+
+  .hero__byline-by {
+    letter-spacing: 0.06em;
+  }
+
+  .hero__folder--lg {
+    left: 3vw;
+    bottom: 20vw;
+    width: 20vw;
+  }
+
+  .hero__folder--sm-a {
+    right: 3.5vw;
+    top: 11vw;
+    width: 10vw;
+  }
+
+  .hero__folder--sm-b {
+    right: 2vw;
+    top: 13.5vw;
+    width: 10vw;
+  }
+
+  .hero__dock {
+    bottom: 3vw;
+    gap: 1.6vw;
+    padding: 2.4vw 2.2vw;
+    border-radius: 4.6vw;
+    box-shadow: inset 0 0 0 0.3vw rgba(26, 26, 26, 0.9),
+      0 2vw 5vw rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(9vw);
+    backdrop-filter: blur(9vw);
+  }
+
+  .hero__dock img {
+    width: 9vw;
+    height: 9vw;
+  }
+}
+
+/* Coolvetica is the artboard face. Use it when the visitor has it installed;
+   otherwise the Helvetica Neue fallback keeps nearly identical metrics.
+   To ship it to every visitor, add a licensed WOFF2 and a src: url() entry. */
+@font-face {
+  font-family: 'Coolvetica';
+  src: local('Coolvetica Rg'), local('Coolvetica-Regular'), local('Coolvetica');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

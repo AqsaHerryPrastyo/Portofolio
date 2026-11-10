@@ -229,11 +229,6 @@ section[id] {
   scroll-margin-top: 96px;
 }
 
-/* Animated greeting wordmark uses the brand purple stroke */
-.hello-scale-wrap svg path {
-  stroke: #a78bfa !important;
-}
-
 /* Hide scrollbar on the horizontal mobile nav without losing scrollability */
 .no-scrollbar {
   scrollbar-width: none;

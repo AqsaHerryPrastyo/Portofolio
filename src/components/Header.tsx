@@ -39,14 +39,14 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 px-5 py-4 md:px-10 md:py-6 transition-colors duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 sm:px-5 sm:py-4 md:px-10 md:py-6 transition-colors duration-300 ${
         scrolled ? 'bg-[#0a0a0a]/70 backdrop-blur-md' : 'bg-transparent'
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-3">
         {/* Left side: location and time */}
         <div className="flex flex-col gap-0.5 shrink-0">
-          <p className="text-white/90 text-xs sm:text-sm md:text-base font-medium tracking-wide whitespace-nowrap">
+          <p className="text-white/90 text-[11px] sm:text-sm md:text-base font-medium tracking-wide whitespace-nowrap">
             Bali, Denpasar
           </p>
           <p className="text-white/60 text-[11px] sm:text-xs md:text-sm tracking-wide whitespace-nowrap tabular-nums">
@@ -58,7 +58,7 @@ export function Header() {
             collide with the location block or overflow the viewport. */}
         <nav
           aria-label="Main"
-          className="flex flex-nowrap justify-end gap-x-2.5 sm:gap-x-6 max-w-[64%] md:max-w-none"
+          className="flex flex-nowrap justify-end gap-x-2 sm:gap-x-6 shrink-0"
         >
           {NAV_LINKS.map((link) => (
             <a
@@ -68,7 +68,7 @@ export function Header() {
                 e.preventDefault();
                 goTo(link.id);
               }}
-              className="text-white/70 hover:text-white text-[10px] sm:text-sm md:text-base font-medium uppercase tracking-wide md:tracking-widest transition-colors py-1 whitespace-nowrap"
+              className="text-white/70 hover:text-white text-[9.5px] min-[360px]:text-[10px] sm:text-sm md:text-base font-medium uppercase tracking-wide md:tracking-widest transition-colors py-1 whitespace-nowrap"
             >
               {link.label}
             </a>
