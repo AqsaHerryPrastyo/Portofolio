@@ -89,76 +89,82 @@ function shuffleArray(array: number[]) {
 }
 
 export function AnimatedHello() {
-  const [sequence, setSequence] = useState(() => shuffleArray(Array.from({ length: helloMeta.length }, (_, i) => i)));
+  const [sequence, setSequence] = useState(() =>
+    shuffleArray(Array.from({ length: helloMeta.length }, (_, i) => i)),
+  );
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [targetH, setTargetH] = useState(58);
+  const [targetH, setTargetH] = useState(66);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 480) {
-        setTargetH(36);
-      } else if (window.innerWidth < 768) {
-        setTargetH(46);
-      } else {
-        setTargetH(58);
-      }
+    const apply = () => {
+      if (window.innerWidth < 480) setTargetH(36);
+      else if (window.innerWidth < 768) setTargetH(46);
+      else setTargetH(66);
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    apply();
+    window.addEventListener('resize', apply);
+    return () => window.removeEventListener('resize', apply);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const interval = window.setInterval(() => {
       setVisible(false);
-      setTimeout(() => {
-        setStep(prevStep => {
-          if (prevStep + 1 >= helloMeta.length) {
-            setSequence(prevSeq => {
-              const lastElement = prevSeq[prevSeq.length - 1];
-              const newSeq = shuffleArray(Array.from({ length: helloMeta.length }, (_, i) => i));
-              // Ensure the same component doesn't appear back-to-back when new sequence starts
-              if (newSeq[0] === lastElement) {
-                [newSeq[0], newSeq[1]] = [newSeq[1], newSeq[0]];
-              }
-              return newSeq;
-            });
-            return 0;
-          }
-          return prevStep + 1;
+      timeoutRef.current = window.setTimeout(() => {
+        setStep((prev) => {
+          if (prev + 1 < helloMeta.length) return prev + 1;
+          setSequence((prevSeq) => {
+            const next = shuffleArray(
+              Array.from({ length: helloMeta.length }, (_, i) => i),
+            );
+            if (next[0] === prevSeq[prevSeq.length - 1]) {
+              [next[0], next[1]] = [next[1], next[0]];
+            }
+            return next;
+          });
+          return 0;
         });
         setVisible(true);
       }, 400);
     }, 3500);
-    return () => clearInterval(interval);
+
+    return () => {
+      window.clearInterval(interval);
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    };
   }, []);
 
-  const currentIndex = sequence[step];
-  const { Component, h, w } = helloMeta[currentIndex];
+  // Reserve the widest greeting so the headline never shifts between words.
+  const slotWidth = Math.ceil(
+    Math.max(...helloMeta.map((m) => (targetH / m.h) * m.w)),
+  );
+
+  const { Component, h, w } = helloMeta[sequence[step]];
   const scale = targetH / h;
   const scaledW = Math.round(w * scale);
 
   return (
-    <>
-      {/* Global style for purple stroke override */}
-      <style>{`
-        .hello-scale-wrap svg path {
-          stroke: #8B5CF6 !important;
-        }
-      `}</style>
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'relative',
+        width: slotWidth,
+        height: targetH,
+        flexShrink: 0,
+      }}
+    >
       <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0"
         style={{
-          display: 'inline-block',
           width: scaledW,
           height: targetH,
-          overflow: 'visible',
-          flexShrink: 0,
           opacity: visible ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
       >
-        {/* This div has the exact intrinsic size → Hello SVG renders correctly */}
         <div
           className="hello-scale-wrap"
           style={{
@@ -168,12 +174,11 @@ export function AnimatedHello() {
             transformOrigin: 'top left',
           }}
         >
-          {/* Give exact dimensions so size-full works */}
           <div style={{ width: w, height: h, position: 'relative' }}>
             <Component />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

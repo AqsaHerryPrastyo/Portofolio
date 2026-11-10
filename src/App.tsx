@@ -3,26 +3,18 @@ import { AboutSection } from './components/AboutSection';
 import { ShowcaseSection } from './components/ShowcaseSection';
 import { ContactSection } from './components/ContactSection';
 import { Header } from './components/Header';
-import { Toaster } from 'sonner@2.0.3';
 
 export default function App() {
   return (
     <>
+      <a
+        href="#home"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-purple-600 focus:px-4 focus:py-2 focus:text-white"
+      >
+        Skip to content
+      </a>
       <Header />
-      <Toaster 
-        position="top-right" 
-        richColors 
-        closeButton
-        theme="dark"
-        toastOptions={{
-          style: {
-            background: '#1a1a1a',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            color: '#ffffff'
-          }
-        }}
-      />
-      <main className="min-h-screen w-full bg-background">
+      <main id="main" className="min-h-screen w-full bg-background">
         <HeroSection />
         <AboutSection />
         <ShowcaseSection />

@@ -1,81 +1,80 @@
 import { useState, useEffect } from 'react';
 
+const NAV_LINKS = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'showcase', label: 'Project' },
+  { id: 'contact', label: 'Contact' },
+];
+
 export function Header() {
   const [time, setTime] = useState<string>('');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const updateTime = () => {
-      // Create formatter for WITA (UTC+8) which is 'Asia/Makassar' timezone
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Makassar',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: false,
-      });
-      const formattedTime = formatter.format(new Date());
-      setTime(`${formattedTime}, WITA - Indonesia`);
-    };
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Makassar',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
 
-    updateTime(); // Initial call
-    const interval = setInterval(updateTime, 1000);
+    const updateTime = () => setTime(formatter.format(new Date()));
+
+    updateTime();
+    const interval = setInterval(updateTime, 30_000);
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-6 md:p-10 flex justify-between items-start pointer-events-none">
-      {/* Left side: Location and Time */}
-      <div className="flex flex-col gap-1 pointer-events-auto">
-        <p className="text-white/90 text-sm md:text-base font-medium tracking-wide">
-          Bali, Denpasar
-        </p>
-        <p className="text-white/60 text-xs md:text-sm tracking-wide">
-          {time || 'Loading time...'}
-        </p>
-      </div>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-      {/* Right side: Navigation Links */}
-      <nav className="flex gap-6 pointer-events-auto">
-        <a 
-          href="#home" 
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="text-white/70 hover:text-white text-sm md:text-base font-medium uppercase tracking-widest transition-colors"
+  const goTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 px-5 py-4 md:px-10 md:py-6 transition-colors duration-300 ${
+        scrolled ? 'bg-[#0a0a0a]/70 backdrop-blur-md' : 'bg-transparent'
+      }`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        {/* Left side: location and time */}
+        <div className="flex flex-col gap-0.5 shrink-0">
+          <p className="text-white/90 text-xs sm:text-sm md:text-base font-medium tracking-wide whitespace-nowrap">
+            Bali, Denpasar
+          </p>
+          <p className="text-white/60 text-[11px] sm:text-xs md:text-sm tracking-wide whitespace-nowrap tabular-nums">
+            {time ? `${time} WITA` : '\u00a0'}
+          </p>
+        </div>
+
+        {/* Right side: navigation. Horizontal scroll below md so links never
+            collide with the location block or overflow the viewport. */}
+        <nav
+          aria-label="Main"
+          className="flex flex-nowrap justify-end gap-x-2.5 sm:gap-x-6 max-w-[64%] md:max-w-none"
         >
-          Home
-        </a>
-        <a 
-          href="#about" 
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="text-white/70 hover:text-white text-sm md:text-base font-medium uppercase tracking-widest transition-colors"
-        >
-          About
-        </a>
-        <a 
-          href="#showcase" 
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="text-white/70 hover:text-white text-sm md:text-base font-medium uppercase tracking-widest transition-colors"
-        >
-          Project
-        </a>
-        <a 
-          href="#contact" 
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="text-white/70 hover:text-white text-sm md:text-base font-medium uppercase tracking-widest transition-colors"
-        >
-          Contact
-        </a>
-      </nav>
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                goTo(link.id);
+              }}
+              className="text-white/70 hover:text-white text-[10px] sm:text-sm md:text-base font-medium uppercase tracking-wide md:tracking-widest transition-colors py-1 whitespace-nowrap"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }

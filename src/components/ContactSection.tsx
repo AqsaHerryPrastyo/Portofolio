@@ -5,8 +5,8 @@ import imgFrame5 from "figma:asset/d7380f96469e40689a739f087f761349035f78c3.png"
 
 function G() {
   return (
-    <div className="absolute inset-y-0 left-0 w-[35%] flex items-center justify-start opacity-30 pointer-events-none md:opacity-60 mix-blend-plus-lighter pl-4 md:pl-8" data-name="g391">
-      <svg className="w-full h-[60%] md:h-[70%] object-contain" fill="none" preserveAspectRatio="xMinYMid meet" viewBox="0 0 468.503 483">
+    <div className="absolute inset-y-0 left-0 w-[45%] max-w-[220px] flex items-center justify-start opacity-20 pointer-events-none mix-blend-plus-lighter pl-4 md:pl-6" data-name="g391">
+      <svg className="w-full h-[55%] object-contain" fill="none" preserveAspectRatio="xMinYMid meet" viewBox="0 0 468.503 483">
         <g id="g391">
           <path d={svgPaths.p1d5db400} fill="var(--fill-0, white)" id="path387" />
           <path d={svgPaths.p31ab5a70} fill="var(--fill-0, white)" id="path388" />
@@ -34,20 +34,20 @@ export function ContactSection() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Let's Work <span className="text-purple-500">Together</span>
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-300 text-base md:text-lg">
             Have a project in mind? Feel free to reach out through any of these channels
           </p>
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-12 auto-rows-[180px]">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-12 auto-rows-[minmax(160px,auto)] md:auto-rows-[190px]">
 
           {/* Map - Large Card */}
           <a
             href="https://maps.google.com/?q=Denpasar,Bali,Indonesia"
             target="_blank"
             rel="noopener noreferrer"
-            className="md:col-span-3 md:row-span-2 group relative rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
+            className="md:col-span-3 md:row-span-2 group relative rounded-3xl overflow-hidden border border-white/15 hover:border-white/25 hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
           >
             {/* Map Image */}
             <img
@@ -64,14 +64,14 @@ export function ContactSection() {
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">Bali, Denpasar</p>
-                <p className="text-white/60 text-xs">Indonesia</p>
+                <p className="text-white/80 text-xs">Indonesia</p>
               </div>
             </div>
           </a>
 
           {/* Instagram - Long Bar */}
           <a
-            href="https://www.instagram.com/oranji.studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            href="https://www.instagram.com/oranji.studio/"
             target="_blank"
             rel="noopener noreferrer"
             className="md:col-span-3 relative group overflow-hidden rounded-3xl border border-white/10 hover:border-purple-500/30 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20"
@@ -96,9 +96,9 @@ export function ContactSection() {
 
               {/* Right side text */}
               <div className="w-full flex flex-col items-end justify-center text-right">
-                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight drop-shadow-lg">
+                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight drop-shadow-lg">
                   Oranji Studio
-                </h2>
+                </h3>
                 <p className="text-sm md:text-base text-white/90 font-medium tracking-wide mt-1 drop-shadow-md">
                   Creative Design Agency
                 </p>
@@ -113,7 +113,7 @@ export function ContactSection() {
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/+6281234419881"
+            href="https://wa.me/6281234419881"
             target="_blank"
             rel="noopener noreferrer"
             className="group p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-green-600/20 hover:border-green-400/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-green-500/10"
@@ -124,7 +124,7 @@ export function ContactSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">WhatsApp</h3>
-                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
                   +62 812 3441 9881
                 </p>
               </div>
@@ -144,7 +144,7 @@ export function ContactSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">LinkedIn</h3>
-                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
                   Aqsa Herry Prasetya
                 </p>
               </div>
@@ -164,7 +164,7 @@ export function ContactSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">GitHub</h3>
-                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
                   @DrWallace
                 </p>
               </div>
@@ -174,10 +174,10 @@ export function ContactSection() {
         </div>
 
         {/* Footer */}
-        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-          <p>© 2025 Aqsa Herry. All rights reserved.</p>
-          <p>Designed with passion & precision</p>
-        </div>
+        <footer className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+          <p>© {new Date().getFullYear()} Aqsa Herry Prasetya. All rights reserved.</p>
+          <p>Designed and built with care in Bali.</p>
+        </footer>
       </div>
     </section>
   );

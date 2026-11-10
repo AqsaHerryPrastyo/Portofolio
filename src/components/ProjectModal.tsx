@@ -1,6 +1,5 @@
-import { X } from 'lucide-react';
-import { useEffect } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { X, ExternalLink, Github } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 interface ProjectImage {
   src: string;
@@ -25,42 +24,82 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      // Keep focus inside the dialog while it is open.
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+        'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-  }, [isOpen]);
+
+    document.addEventListener('keydown', onKeyDown);
+    closeRef.current?.focus();
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen || !project) return null;
 
   const projects = Array.isArray(project) ? project : [project];
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm"
       onClick={onClose}
+      role="presentation"
     >
-      <div 
-        className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur-md border border-white/10 rounded-2xl"
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={projects.map((p) => p.title).join(', ')}
+        className="relative w-full max-w-5xl max-h-[90dvh] overflow-y-auto overscroll-contain bg-card/95 backdrop-blur-md border border-white/10 rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="sticky top-4 right-4 z-10 w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center transition-all hover:scale-110 ml-auto mr-4 mt-4 shadow-lg"
-        >
-          <X size={20} />
-        </button>
+        {/* Sticky action bar keeps close reachable above the scrolling content */}
+        <div className="sticky top-0 z-20 flex justify-end bg-gradient-to-b from-[#1a1a1a] via-[#1a1a1a]/95 to-transparent px-4 pt-4 pb-6">
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            aria-label="Close project details"
+            className="w-11 h-11 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-300"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
         {/* Modal Content - Multiple Projects */}
         {projects.map((projectItem, projectIndex) => (
-          <div key={projectIndex} className="p-6 md:p-12 pt-0">
+          <div key={projectIndex} className="px-4 pb-6 sm:px-6 sm:pb-8 md:px-12 md:pb-12 pt-0">
             {/* Separator between projects */}
             {projectIndex > 0 && (
               <div className="my-8 md:my-12 border-t border-white/10" />
@@ -145,7 +184,9 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
                     <img
                       src={image.src}
                       alt={image.alt}
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                       <p className="text-sm text-white">{image.alt}</p>

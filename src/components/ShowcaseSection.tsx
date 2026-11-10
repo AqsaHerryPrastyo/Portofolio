@@ -34,6 +34,7 @@ interface ProjectCategory {
   label: string;
   image: string;
   gradient: string;
+  year: string;
 }
 
 interface ProjectDetail {
@@ -130,6 +131,11 @@ export function ShowcaseSection() {
     }
   };
 
+  const toggleViewAll = (open: boolean) => {
+    setIsViewAllOpen(open);
+    document.getElementById('showcase')?.scrollIntoView({ block: 'start' });
+  };
+
   const categories: (ProjectCategory & { className: string })[] = [
     {
       id: 'uiux',
@@ -137,22 +143,25 @@ export function ShowcaseSection() {
       label: 'Case Studies',
       image: 'https://images.unsplash.com/photo-1586717799252-bd134ad00e26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxVSSUyMFVYJTIwZGVzaWdufGVufDF8fHx8MTc2NTE3Mzc5MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       gradient: 'from-purple-600/20 to-pink-600/20',
+      year: '2024',
       className: 'md:col-span-2 md:row-span-2'
     },
     {
       id: 'flutter',
       title: 'Mobile Apps',
       label: 'Flutter & Android',
-      image: 'https://images.unsplash.com/photo-1763301349994-bf4e6799da10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmbHV0dGVyJTIwbW9iaWxlJTIwYXBwfGVufDF8fHx8MTc2NTE3Mzc5MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1080&q=80',
       gradient: 'from-blue-600/20 to-cyan-600/20',
+      year: '2025',
       className: 'md:col-span-1 md:row-span-1'
     },
     {
       id: 'laravel',
       title: 'Web Development',
       label: 'Laravel & PHP',
-      image: 'https://images.unsplash.com/photo-1503252947848-7338d3f92f31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYXJhdmVsJTIwd2ViJTIwZGV2ZWxvcG1lbnR8ZW58MXx8fHwxNzY1MTczNzkwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1080&q=80',
       gradient: 'from-purple-600/20 to-blue-600/20',
+      year: '2025',
       className: 'md:col-span-1 md:row-span-1'
     },
     {
@@ -161,6 +170,7 @@ export function ShowcaseSection() {
       label: 'Branding & Visual Identity',
       image: 'https://images.unsplash.com/photo-1497091071254-cc9b2ba7c48a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwZGVzaWduJTIwY3JlYXRpdmV8ZW58MXx8fHwxNjUxMzQxMTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       gradient: 'from-pink-600/20 to-purple-600/20',
+      year: '2024',
       className: 'md:col-span-1 md:row-span-1'
     }
   ];
@@ -215,7 +225,7 @@ export function ShowcaseSection() {
           {/* Section Header */}
           <div className="relative z-10 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 max-w-7xl mx-auto">
             <div>
-              <h2 className="text-4xl md:text-5xl font-medium text-white mb-2 font-sans tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 font-sans tracking-tight">
                 Featured Projects
               </h2>
               <p className="text-gray-400 text-base md:text-lg max-w-xl">
@@ -223,7 +233,7 @@ export function ShowcaseSection() {
               </p>
             </div>
             <button 
-              onClick={() => setIsViewAllOpen(true)}
+              onClick={() => toggleViewAll(true)}
               className="px-6 py-3 rounded-full border border-white/10 text-white/90 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium cursor-pointer"
             >
               View All
@@ -233,10 +243,11 @@ export function ShowcaseSection() {
           {/* Clean 2-Column Grid Layout */}
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {categories.map((category) => (
-              <div
+              <button
                 key={category.id}
-                className="group cursor-pointer rounded-3xl overflow-hidden bg-[#141414] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/50 flex flex-col border border-white/[0.02]"
+                type="button"
                 onClick={() => handleCategoryClick(category.id)}
+                className="group cursor-pointer text-left rounded-3xl overflow-hidden bg-[#141414] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/50 flex flex-col border border-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
               >
                 {/* Image Section */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#0a0a0a]">
@@ -248,9 +259,9 @@ export function ShowcaseSection() {
                 </div>
 
                 {/* Content Section */}
-                <div className="flex justify-between items-center p-8 bg-[#141414]">
+                <div className="flex justify-between items-center gap-4 p-4 sm:p-6 md:p-8 bg-[#141414]">
                   <div className="flex flex-col gap-2">
-                    <p className="text-gray-500 text-xs font-semibold tracking-[0.2em] uppercase">
+                    <p className="text-gray-400 text-xs font-semibold tracking-[0.2em] uppercase">
                       {category.label}
                     </p>
                     <h3 className="text-white text-2xl font-medium tracking-wide">
@@ -260,11 +271,11 @@ export function ShowcaseSection() {
 
                   {/* Tag / Icon */}
                   <div className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-gray-400 group-hover:text-white group-hover:bg-white/5 transition-all duration-300">
-                    <span className="text-sm font-medium">2024</span>
+                    <span className="text-sm font-medium">{category.year}</span>
                     <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </>
@@ -273,14 +284,14 @@ export function ShowcaseSection() {
           {/* Header: All Projects */}
           <div className="relative z-10 mb-12 max-w-7xl mx-auto flex flex-col gap-8">
             <button 
-              onClick={() => setIsViewAllOpen(false)}
+              onClick={() => toggleViewAll(false)}
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors self-start w-fit px-5 py-2.5 rounded-full border border-white/10 hover:border-white/20 bg-white/[0.02] cursor-pointer group"
             >
               <ArrowUpRight size={18} className="rotate-[-135deg] group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform" />
               <span className="text-sm font-medium tracking-wide">Back</span>
             </button>
             <div>
-              <h2 className="text-4xl md:text-5xl font-medium text-white mb-2 font-sans tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 font-sans tracking-tight">
                 All Projects
               </h2>
               <p className="text-gray-400 text-base md:text-lg max-w-xl">
@@ -292,13 +303,14 @@ export function ShowcaseSection() {
           {/* All Projects Grid */}
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {allProjectsList.map((project) => (
-              <div
+              <button
                 key={project.id}
-                className="group cursor-pointer rounded-3xl overflow-hidden bg-[#141414] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/50 flex flex-col border border-white/[0.02]"
+                type="button"
                 onClick={() => {
                   setSelectedProject(project.projectData);
                   setIsModalOpen(true);
                 }}
+                className="group cursor-pointer text-left rounded-3xl overflow-hidden bg-[#141414] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/50 flex flex-col border border-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
               >
                 {/* Image Section */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#0a0a0a]">
@@ -310,9 +322,9 @@ export function ShowcaseSection() {
                 </div>
 
                 {/* Content Section */}
-                <div className="flex justify-between items-center p-8 bg-[#141414]">
+                <div className="flex justify-between items-center gap-4 p-4 sm:p-6 md:p-8 bg-[#141414]">
                   <div className="flex flex-col gap-2">
-                    <p className="text-gray-500 text-xs font-semibold tracking-[0.2em] uppercase">
+                    <p className="text-gray-400 text-xs font-semibold tracking-[0.2em] uppercase">
                       {project.label}
                     </p>
                     <h3 className="text-white text-2xl font-medium tracking-wide">
@@ -326,7 +338,7 @@ export function ShowcaseSection() {
                     <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </>

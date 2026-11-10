@@ -1,4 +1,4 @@
-import { Code, Palette } from 'lucide-react';
+import { Code, Palette, BrainCircuit } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export function AboutSection() {
@@ -11,7 +11,7 @@ export function AboutSection() {
     },
     {
       title: 'Machine Learning',
-      icon: <Code className="text-white" size={24} />, // Used Code icon to match reference image, but could use BrainCircuit
+      icon: <BrainCircuit className="text-white" size={24} />,
       gradient: 'bg-gradient-to-br from-[#22c55e] to-[#16a34a]',
       description: 'Python, Jupyter, TensorFlow, Keras, Scikit-Learn, Pandas, CV2, etc.',
     },
@@ -44,9 +44,9 @@ export function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto"
+            className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            A multidisciplinary developer and designer blending technical logic with visual precision. As an IT student and AI enthusiast, I focus on integrating Machine Learning into creative workflows to build intuitive digital experiences. To me, great technology is where functionality meets aesthetic excellence
+            A multidisciplinary developer and designer blending technical logic with visual precision. As an IT student and AI enthusiast, I focus on integrating Machine Learning into creative workflows to build intuitive digital experiences. To me, great technology is where functionality meets aesthetic excellence.
           </motion.p>
         </div>
 
@@ -58,13 +58,13 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-500/10"
+              className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-500/10"
             >
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${card.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {card.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-3 tracking-wide">{card.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-gray-300 text-sm leading-relaxed">
                 {card.description}
               </p>
             </motion.div>
